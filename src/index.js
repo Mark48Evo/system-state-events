@@ -16,7 +16,7 @@ async function main() {
   const channel = await connect.createChannel();
   const redis = createClient(config.redisURL);
 
-  const systemEvents = await SystemEvents(channel);
+  const systemEvents = await SystemEvents(channel, { consume: false });
   const systemState = await SystemState(redis, channel);
 
   systemState.on('*', async (stateName, value) => {

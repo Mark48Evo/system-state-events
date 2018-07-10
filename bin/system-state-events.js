@@ -19,7 +19,9 @@ async function main() {
   const connect = await amqplib.connect(config.host);
   const channel = await connect.createChannel();
   const redis$$1 = redis.createClient(config.redisURL);
-  const systemEvents = await SystemEvents(channel);
+  const systemEvents = await SystemEvents(channel, {
+    consume: false
+  });
   const systemState = await SystemState(redis$$1, channel);
   systemState.on('*', async (stateName, value) => {
     debug(`Published "state.change" for state: "${stateName}"`);
