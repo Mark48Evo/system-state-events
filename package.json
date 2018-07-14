@@ -14,6 +14,8 @@
   "module": "src/index.js",
   "scripts": {
     "rollup": "rollup -c rollup.config.js",
+    "prepublishOnly": "rollup -c rollup.config.js",
+    "pretest": "eslint ./src",
     "lint": "eslint ./src",
     "lint-fix": "eslint ./src --fix"
   },
@@ -31,6 +33,7 @@
     "@mark48evo/system-state": "^1.1.2",
     "amqplib": "^0.5.2",
     "debug": "^3.1.0",
+    "pmx": "^1.6.7",
     "redis": "^2.8.0"
   },
   "devDependencies": {
