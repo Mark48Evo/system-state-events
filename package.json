@@ -1,6 +1,6 @@
 {
   "name": "@mark48evo/system-state-events",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A utility to publish system state changes to system events",
   "author": "Aurimas Niekis <aurimas@niekis.lt> (https://github.com/Mark48Evo)",
   "license": "MIT",
