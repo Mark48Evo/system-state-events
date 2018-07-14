@@ -13,6 +13,7 @@ export default [
       },
     ],
     external: [
+      'pmx',
       'debug',
       'redis',
       'amqplib',

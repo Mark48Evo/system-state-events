@@ -1,20 +1,17 @@
-import { init as PMXInit, Probe } from 'pmx';
+import pmx from 'pmx';
 import Debug from 'debug';
 import amqplib from 'amqplib';
 import { createClient } from 'redis';
 import SystemEvents from '@mark48evo/system-events';
 import SystemState from '@mark48evo/system-state';
 
-PMXInit({
-  network: true,
-  ports: true,
-});
+pmx.init({});
 
-const statesProcessed = Probe.counter({
+const statesProcessed = pmx.probe().counter({
   name: 'State Changes Processed',
 });
 
-const statesProcessedPerMin = Probe.meter({
+const statesProcessedPerMin = pmx.probe().meter({
   name: 'req/min',
   samples: 1,
   timeframe: 60,
@@ -35,6 +32,8 @@ async function main() {
   const systemEvents = await SystemEvents(channel, { consume: false });
   const systemState = await SystemState(redis, channel);
 
+  debug('Init Completed');
+
   systemState.on('*', async (stateName, value) => {
     debug(`Published "state.change" for state: "${stateName}"`);
     statesProcessed.inc();
@@ -47,4 +46,4 @@ async function main() {
   });
 }
 
-main();
+main().catch(e => console.error(e));
